@@ -25,24 +25,47 @@ src/
   generate_responses.py   send the same prompts to every LLM, save what each writes
   check_responses.py      quality checks on the answers; writes results/response_stats.json
   build_dataset.py        clean the responses, tag the task type, split by prompt
-  data.py                 tokeniser, vocabulary, padding, DataLoader
-  models.py               the CNN and the LSTM
-  train.py                training loop with validation and early stopping
-  evaluate.py             accuracy, macro F1, confusion matrix
   baseline.py             TF-IDF + logistic regression
-  experiments.py          the runs for RQ2, RQ3 and RQ4
+  data.py                 tokeniser, vocabulary, padding, data loaders
+  models.py               the CNN and the LSTM                              (to write)
+  train.py                training loop with validation and early stopping   (to write)
+  evaluate.py             scores a classifier, saves its predictions, prints the comparison table
+  plot_results.py         draws the figures in results/figures
+  experiments.py          the runs for RQ2, RQ3 and RQ4                      (to write)
 data/
   prompts/                prompts.jsonl, SOURCES.md (where each prompt comes from) and the licence files
   sources/                the downloaded prompt sources (kept out of git)
-  responses/              one file per LLM: (llm_name, llm_input, llm_output), and settings.json
-  splits/                 train / validation / test
+  responses/              the raw answers, one file per LLM, and settings.json; logs/ is kept out of git
+  splits/                 the cleaned train / validation / test files and split_report.json
+models/                   saved weights, one file per run (kept out of git)
+results/
+  baseline.json           scores of the baseline (baseline_words_only.json: without punctuation)
+  response_stats.json     statistics of the raw answers
+  runs/<run>/             one folder per trained model: history.json, metrics.json, predictions
+  figures/                the figures, redrawn from the files above
 docs/
   technical_report.md     how the dataset was built and what is in it
-results/                  metrics, confusion matrices, figures
 report/                   the report PDF
 ```
 
-`collect_prompts.py`, `generate_responses.py`, `check_responses.py`, `build_dataset.py` and `baseline.py` are implemented. The raw dataset is in `data/responses/` (6,000 answers), the cleaned splits are in `data/splits/` (4,194 train, 900 validation, 900 test rows), and the baseline's results are in `results/baseline.json`. The other files under `src/` (`data.py`, `models.py`, `train.py`, `evaluate.py`, `experiments.py`) are stubs that describe their job.
+Everything except `models.py`, `train.py` and `experiments.py` is implemented. The raw dataset is in `data/responses/` (6,000 answers), the cleaned splits are in `data/splits/` (4,194 train, 900 validation, 900 test rows), and the baseline's results are in `results/baseline.json`.
+
+## Running
+
+In this order; each step reads what the one before wrote.
+
+```
+python src/collect_prompts.py       # data/prompts/prompts.jsonl
+python src/generate_responses.py    # data/responses/<model>.jsonl        needs Ollama and the three models
+python src/check_responses.py       # results/response_stats.json
+python src/build_dataset.py         # data/splits/{train,val,test}.jsonl
+python src/baseline.py              # results/baseline.json
+python src/train.py                 # models/<run>.pt, results/runs/<run>/
+python src/evaluate.py              # the comparison table of every classifier
+python src/plot_results.py          # results/figures/*.png
+```
+
+A trained model shows up in the table and in the figures as soon as its `results/runs/<run>/metrics.json` exists. What `train.py` has to write for that is described at the top of `src/train.py`.
 
 ## Dataset
 

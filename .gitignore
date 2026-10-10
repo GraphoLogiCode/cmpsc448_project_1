@@ -11,11 +11,14 @@ assignment/
 data/sources/
 
 # trial runs and logs of the generation
+data/responses/logs/
 data/responses/*_trial.jsonl
 data/responses/settings_trial.json
 data/responses/*.log
 data/responses/*.err
 
 # trained weights
+models/*
+!models/.gitkeep
 *.pt
 *.safetensors

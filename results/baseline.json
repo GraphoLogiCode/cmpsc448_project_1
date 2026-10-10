@@ -16,6 +16,7 @@
    "C": 0.1,
    "features": 43816,
    "val": {
+    "rows": 900,
     "accuracy": 0.3333,
     "macro_f1": 0.1667,
     "per_model": {
@@ -60,6 +61,7 @@
     }
    },
    "test": {
+    "rows": 900,
     "accuracy": 0.3333,
     "macro_f1": 0.1667,
     "per_model": {
@@ -108,6 +110,7 @@
    "C": 100.0,
    "features": 125040,
    "val": {
+    "rows": 900,
     "accuracy": 0.8911,
     "macro_f1": 0.8918,
     "per_model": {
@@ -152,6 +155,7 @@
     }
    },
    "test": {
+    "rows": 900,
     "accuracy": 0.8833,
     "macro_f1": 0.8841,
     "per_model": {
@@ -200,6 +204,7 @@
    "C": 1000.0,
    "features": 146425,
    "val": {
+    "rows": 900,
     "accuracy": 0.8833,
     "macro_f1": 0.8838,
     "per_model": {
@@ -244,6 +249,7 @@
     }
    },
    "test": {
+    "rows": 900,
     "accuracy": 0.8778,
     "macro_f1": 0.8783,
     "per_model": {

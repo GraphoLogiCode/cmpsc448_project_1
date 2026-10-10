@@ -24,7 +24,9 @@ from pathlib import Path
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_recall_fscore_support
+from sklearn.metrics import accuracy_score
+
+import evaluate
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -57,17 +59,9 @@ def fit(train_texts, train_labels, val_texts, val_labels, token_pattern):
 
 
 def score(vectoriser, classifier, rows, texts, labels, names):
-    predicted = classifier.predict(vectoriser.transform(texts))
-    precision, recall, f1, _ = precision_recall_fscore_support(labels, predicted, labels=names, zero_division=0)
-    tasks = sorted({r["task"] for r in rows})
-    return {"accuracy": round(accuracy_score(labels, predicted), 4),
-            "macro_f1": round(f1_score(labels, predicted, average="macro", zero_division=0), 4),
-            "per_model": {n: {"precision": round(float(p), 4), "recall": round(float(r), 4), "f1": round(float(f), 4)}
-                          for n, p, r, f in zip(names, precision, recall, f1)},
-            "confusion_matrix": confusion_matrix(labels, predicted, labels=names).tolist(),
-            "accuracy_per_task": {t: round(accuracy_score([l for l, r in zip(labels, rows) if r["task"] == t],
-                                                          [p for p, r in zip(predicted, rows) if r["task"] == t]), 4)
-                                  for t in tasks}}
+    """The same numbers as for the neural models, from the function they are scored with."""
+    predicted = list(classifier.predict(vectoriser.transform(texts)))
+    return evaluate.score(labels, predicted, [r["task"] for r in rows], names)
 
 
 def strongest_features(vectoriser, classifier, names):
