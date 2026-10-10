@@ -21,7 +21,9 @@ The full assignment is in `assignment/` (kept out of git).
 
 ```
 src/
+  collect_prompts.py      build data/prompts/prompts.jsonl from the four prompt sources
   generate_responses.py   send the same prompts to every LLM, save what each writes
+  check_responses.py      quality checks on the answers; writes results/response_stats.json
   build_dataset.py        clean the responses, tag the task type, split by prompt
   data.py                 tokeniser, vocabulary, padding, DataLoader
   models.py               the CNN and the LSTM
@@ -30,22 +32,26 @@ src/
   baseline.py             TF-IDF + logistic regression
   experiments.py          the runs for RQ2, RQ3 and RQ4
 data/
-  prompts/                the prompts, with their task type and source
-  responses/              one file per LLM: (llm_name, llm_input, llm_output)
+  prompts/                prompts.jsonl, SOURCES.md (where each prompt comes from) and the licence files
+  sources/                the downloaded prompt sources (kept out of git)
+  responses/              one file per LLM: (llm_name, llm_input, llm_output), and settings.json
   splits/                 train / validation / test
+docs/
+  technical_report.md     how the dataset was built and what is in it
 results/                  metrics, confusion matrices, figures
 report/                   the report PDF
 ```
 
-Every file under `src/` is an empty stub that describes its job. Nothing is implemented yet.
+`collect_prompts.py`, `generate_responses.py`, `check_responses.py`, `build_dataset.py` and `baseline.py` are implemented. The raw dataset is in `data/responses/` (6,000 answers), the cleaned splits are in `data/splits/` (4,194 train, 900 validation, 900 test rows), and the baseline's results are in `results/baseline.json`. The other files under `src/` (`data.py`, `models.py`, `train.py`, `evaluate.py`, `experiments.py`) are stubs that describe their job.
 
 ## Dataset
 
-Rows of `(llm_name, llm_input, llm_output)` from at least three LLM families, with about the same number of rows per LLM. The assignment asks for the sources to be documented, so fill these in as they are decided:
+Rows of `(llm_name, llm_input, llm_output)` from three LLM families, 2,000 rows per LLM. How it was built and what the checks found is in [docs/technical_report.md](docs/technical_report.md).
 
-- **Prompts:** _where they come from, their licence, how they were selected_
-- **LLMs:** _name, version and family of each, and how it was run_
-- **Generation settings:** _system prompt, temperature, token limit_
+- **Prompts:** 2,000 prompts, 500 for each of four task types (coding, math, factual, writing). Sources, licences and selection rules are in [data/prompts/SOURCES.md](data/prompts/SOURCES.md).
+- **LLMs:** three families, run locally with Ollama 0.32.4 on 10 October 2026: `llama3.1:8b` (Meta), `qwen2.5:7b` (Alibaba) and `mistral:7b` (Mistral AI), each as a 4-bit (Q4_K_M) build.
+- **Generation settings:** the same for every model: system prompt "You are a helpful assistant.", temperature 0.7, seed 448, at most 600 tokens per answer, one answer per prompt. The exact values and model digests are in `data/responses/settings.json`.
+- **Cleaning and split.** `build_dataset.py` strips whitespace from every answer (every raw Mistral answer begins with a space), removes the two prompts where Qwen's answer contains its maker's name, and splits by prompt, 70% / 15% / 15% within each task. What it changed is listed in `data/splits/split_report.json`. The files in `data/responses/` stay raw.
 
 Four rules, each of which protects one of the research questions:
 

@@ -1,0 +1,480 @@
+{
+ "tokens": "words only",
+ "models": [
+  "llama3.1:8b",
+  "mistral:7b",
+  "qwen2.5:7b"
+ ],
+ "chance": 0.3333,
+ "rows": {
+  "train": 4194,
+  "val": 900,
+  "test": 900
+ },
+ "inputs": {
+  "prompt only": {
+   "C": 0.1,
+   "features": 38510,
+   "val": {
+    "accuracy": 0.3333,
+    "macro_f1": 0.1667,
+    "per_model": {
+     "llama3.1:8b": {
+      "precision": 0.3333,
+      "recall": 1.0,
+      "f1": 0.5
+     },
+     "mistral:7b": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+     },
+     "qwen2.5:7b": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+     }
+    },
+    "confusion_matrix": [
+     [
+      300,
+      0,
+      0
+     ],
+     [
+      300,
+      0,
+      0
+     ],
+     [
+      300,
+      0,
+      0
+     ]
+    ],
+    "accuracy_per_task": {
+     "coding": 0.3333,
+     "factual": 0.3333,
+     "math": 0.3333,
+     "writing": 0.3333
+    }
+   },
+   "test": {
+    "accuracy": 0.3333,
+    "macro_f1": 0.1667,
+    "per_model": {
+     "llama3.1:8b": {
+      "precision": 0.3333,
+      "recall": 1.0,
+      "f1": 0.5
+     },
+     "mistral:7b": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+     },
+     "qwen2.5:7b": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0
+     }
+    },
+    "confusion_matrix": [
+     [
+      300,
+      0,
+      0
+     ],
+     [
+      300,
+      0,
+      0
+     ],
+     [
+      300,
+      0,
+      0
+     ]
+    ],
+    "accuracy_per_task": {
+     "coding": 0.3333,
+     "factual": 0.3333,
+     "math": 0.3333,
+     "writing": 0.3333
+    }
+   }
+  },
+  "answer only": {
+   "C": 10.0,
+   "features": 109191,
+   "val": {
+    "accuracy": 0.8111,
+    "macro_f1": 0.8113,
+    "per_model": {
+     "llama3.1:8b": {
+      "precision": 0.8046,
+      "recall": 0.8233,
+      "f1": 0.8138
+     },
+     "mistral:7b": {
+      "precision": 0.7796,
+      "recall": 0.79,
+      "f1": 0.7848
+     },
+     "qwen2.5:7b": {
+      "precision": 0.8512,
+      "recall": 0.82,
+      "f1": 0.8353
+     }
+    },
+    "confusion_matrix": [
+     [
+      247,
+      38,
+      15
+     ],
+     [
+      35,
+      237,
+      28
+     ],
+     [
+      25,
+      29,
+      246
+     ]
+    ],
+    "accuracy_per_task": {
+     "coding": 0.9911,
+     "factual": 0.6444,
+     "math": 0.9022,
+     "writing": 0.7067
+    }
+   },
+   "test": {
+    "accuracy": 0.8344,
+    "macro_f1": 0.8349,
+    "per_model": {
+     "llama3.1:8b": {
+      "precision": 0.8706,
+      "recall": 0.83,
+      "f1": 0.8498
+     },
+     "mistral:7b": {
+      "precision": 0.7778,
+      "recall": 0.8633,
+      "f1": 0.8183
+     },
+     "qwen2.5:7b": {
+      "precision": 0.8648,
+      "recall": 0.81,
+      "f1": 0.8365
+     }
+    },
+    "confusion_matrix": [
+     [
+      249,
+      33,
+      18
+     ],
+     [
+      21,
+      259,
+      20
+     ],
+     [
+      16,
+      41,
+      243
+     ]
+    ],
+    "accuracy_per_task": {
+     "coding": 1.0,
+     "factual": 0.6844,
+     "math": 0.9111,
+     "writing": 0.7422
+    }
+   }
+  },
+  "prompt + answer": {
+   "C": 100.0,
+   "features": 130052,
+   "val": {
+    "accuracy": 0.8078,
+    "macro_f1": 0.808,
+    "per_model": {
+     "llama3.1:8b": {
+      "precision": 0.7987,
+      "recall": 0.82,
+      "f1": 0.8092
+     },
+     "mistral:7b": {
+      "precision": 0.773,
+      "recall": 0.7833,
+      "f1": 0.7781
+     },
+     "qwen2.5:7b": {
+      "precision": 0.8542,
+      "recall": 0.82,
+      "f1": 0.8367
+     }
+    },
+    "confusion_matrix": [
+     [
+      246,
+      38,
+      16
+     ],
+     [
+      39,
+      235,
+      26
+     ],
+     [
+      23,
+      31,
+      246
+     ]
+    ],
+    "accuracy_per_task": {
+     "coding": 0.9956,
+     "factual": 0.6356,
+     "math": 0.8844,
+     "writing": 0.7156
+    }
+   },
+   "test": {
+    "accuracy": 0.8133,
+    "macro_f1": 0.8142,
+    "per_model": {
+     "llama3.1:8b": {
+      "precision": 0.8602,
+      "recall": 0.8,
+      "f1": 0.829
+     },
+     "mistral:7b": {
+      "precision": 0.7399,
+      "recall": 0.8533,
+      "f1": 0.7926
+     },
+     "qwen2.5:7b": {
+      "precision": 0.8582,
+      "recall": 0.7867,
+      "f1": 0.8209
+     }
+    },
+    "confusion_matrix": [
+     [
+      240,
+      42,
+      18
+     ],
+     [
+      23,
+      256,
+      21
+     ],
+     [
+      16,
+      48,
+      236
+     ]
+    ],
+    "accuracy_per_task": {
+     "coding": 0.9911,
+     "factual": 0.6756,
+     "math": 0.8756,
+     "writing": 0.7111
+    }
+   }
+  }
+ },
+ "strongest_features_answer_only": {
+  "llama3.1:8b": [
+   [
+    "down step",
+    4.78
+   ],
+   [
+    "you like",
+    4.39
+   ],
+   [
+    "step",
+    4.33
+   ],
+   [
+    "consider",
+    4.07
+   ],
+   [
+    "ll",
+    4.02
+   ],
+   [
+    "let break",
+    3.99
+   ],
+   [
+    "would you",
+    3.9
+   ],
+   [
+    "magic",
+    3.72
+   ],
+   [
+    "we need",
+    3.59
+   ],
+   [
+    "break",
+    3.4
+   ],
+   [
+    "re",
+    3.3
+   ],
+   [
+    "answer is",
+    3.21
+   ],
+   [
+    "multiply",
+    3.09
+   ],
+   [
+    "down",
+    3.08
+   ],
+   [
+    "magic numbers",
+    2.95
+   ]
+  ],
+  "mistral:7b": [
+   [
+    "let find",
+    4.34
+   ],
+   [
+    "first let",
+    4.29
+   ],
+   [
+    "first need",
+    4.05
+   ],
+   [
+    "we first",
+    3.98
+   ],
+   [
+    "during",
+    3.67
+   ],
+   [
+    "first",
+    3.44
+   ],
+   [
+    "title",
+    3.23
+   ],
+   [
+    "important",
+    3.2
+   ],
+   [
+    "since",
+    3.19
+   ],
+   [
+    "for",
+    3.13
+   ],
+   [
+    "it important",
+    3.09
+   ],
+   [
+    "function named",
+    3.08
+   ],
+   [
+    "important to",
+    3.07
+   ],
+   [
+    "for the",
+    3.06
+   ],
+   [
+    "this function",
+    3.02
+   ]
+  ],
+  "qwen2.5:7b": [
+   [
+    "text",
+    8.69
+   ],
+   [
+    "boxed",
+    6.29
+   ],
+   [
+    "frac",
+    5.46
+   ],
+   [
+    "times",
+    4.76
+   ],
+   [
+    "ensure",
+    4.74
+   ],
+   [
+    "is boxed",
+    4.7
+   ],
+   [
+    "thus",
+    4.67
+   ],
+   [
+    "cpp",
+    4.6
+   ],
+   [
+    "ensure that",
+    4.36
+   ],
+   [
+    "determine",
+    4.07
+   ],
+   [
+    "key",
+    4.03
+   ],
+   [
+    "to determine",
+    3.87
+   ],
+   [
+    "provided function",
+    3.73
+   ],
+   [
+    "steps",
+    3.59
+   ],
+   [
+    "thus the",
+    3.44
+   ]
+  ]
+ }
+}

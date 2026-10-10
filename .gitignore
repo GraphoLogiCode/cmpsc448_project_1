@@ -7,6 +7,15 @@ __pycache__/
 # the course's assignment sheet is not ours to publish
 assignment/
 
+# raw downloads; data/prompts/SOURCES.md says where to get them
+data/sources/
+
+# trial runs and logs of the generation
+data/responses/*_trial.jsonl
+data/responses/settings_trial.json
+data/responses/*.log
+data/responses/*.err
+
 # trained weights
 *.pt
 *.safetensors

@@ -1,0 +1,85 @@
+{
+ "seed": 448,
+ "shares": {
+  "val": 0.15,
+  "test": 0.15
+ },
+ "models": [
+  "llama3.1:8b",
+  "mistral:7b",
+  "qwen2.5:7b"
+ ],
+ "raw_rows": 6000,
+ "answers_changed_by_stripping_whitespace": {
+  "llama3.1:8b": 6,
+  "mistral:7b": 2000,
+  "qwen2.5:7b": 90
+ },
+ "answers_removed": [
+  {
+   "prompt_id": "factual-0322",
+   "llm_name": "qwen2.5:7b",
+   "why": "names its own model or maker"
+  },
+  {
+   "prompt_id": "writing-0282",
+   "llm_name": "qwen2.5:7b",
+   "why": "names its own model or maker"
+  }
+ ],
+ "prompts_removed_because_an_answer_was_removed": [
+  "factual-0322",
+  "writing-0282"
+ ],
+ "splits": {
+  "train": {
+   "prompts": 1398,
+   "rows": 4194,
+   "rows_per_model": {
+    "llama3.1:8b": 1398,
+    "mistral:7b": 1398,
+    "qwen2.5:7b": 1398
+   },
+   "prompts_per_task": {
+    "coding": 350,
+    "factual": 349,
+    "math": 350,
+    "writing": 349
+   },
+   "cut_off_rows": 557
+  },
+  "val": {
+   "prompts": 300,
+   "rows": 900,
+   "rows_per_model": {
+    "llama3.1:8b": 300,
+    "mistral:7b": 300,
+    "qwen2.5:7b": 300
+   },
+   "prompts_per_task": {
+    "coding": 75,
+    "factual": 75,
+    "math": 75,
+    "writing": 75
+   },
+   "cut_off_rows": 106
+  },
+  "test": {
+   "prompts": 300,
+   "rows": 900,
+   "rows_per_model": {
+    "llama3.1:8b": 300,
+    "mistral:7b": 300,
+    "qwen2.5:7b": 300
+   },
+   "prompts_per_task": {
+    "coding": 75,
+    "factual": 75,
+    "math": 75,
+    "writing": 75
+   },
+   "cut_off_rows": 132
+  }
+ },
+ "rows_written": 5994
+}

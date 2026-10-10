@@ -1,0 +1,497 @@
+{
+ "models": {
+  "llama3.1:8b": {
+   "all": {
+    "rows": 2000,
+    "empty": 0,
+    "cut_off_at_token_limit": 0.043,
+    "tokens_median": 281.0,
+    "tokens_mean": 287.5,
+    "words_median": 197.0,
+    "words_p10": 70,
+    "words_p90": 372,
+    "format": {
+     "bold (**)": 0.514,
+     "heading (#)": 0.0065,
+     "bullet list": 0.2495,
+     "numbered list": 0.5305,
+     "code block": 0.078,
+     "LaTeX": 0.091
+    },
+    "names": {
+     "Llama / Meta": 0,
+     "Qwen / Alibaba": 0,
+     "Mistral": 0,
+     "other model or company": 3
+    },
+    "says_it_is_an_ai": 6,
+    "opens_with_refusal": 4,
+    "contains_cjk": 0
+   },
+   "duplicate_prompt_ids": 0,
+   "by_task": {
+    "coding": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.01,
+     "tokens_median": 334.0,
+     "tokens_mean": 343.5,
+     "words_median": 227.0,
+     "words_p10": 179,
+     "words_p90": 281,
+     "format": {
+      "bold (**)": 1.0,
+      "heading (#)": 0.0,
+      "bullet list": 0.244,
+      "numbered list": 0.972,
+      "code block": 0.306,
+      "LaTeX": 0.0
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "math": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.002,
+     "tokens_median": 154.0,
+     "tokens_mean": 169.7,
+     "words_median": 106.0,
+     "words_p10": 70,
+     "words_p90": 178,
+     "format": {
+      "bold (**)": 0.03,
+      "heading (#)": 0.024,
+      "bullet list": 0.154,
+      "numbered list": 0.138,
+      "code block": 0.0,
+      "LaTeX": 0.326
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "factual": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.02,
+     "tokens_median": 220.5,
+     "tokens_mean": 238.0,
+     "words_median": 164.0,
+     "words_p10": 30,
+     "words_p90": 336,
+     "format": {
+      "bold (**)": 0.396,
+      "heading (#)": 0.0,
+      "bullet list": 0.29,
+      "numbered list": 0.524,
+      "code block": 0.002,
+      "LaTeX": 0.014
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "writing": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.14,
+     "tokens_median": 421.0,
+     "tokens_mean": 398.7,
+     "words_median": 318.0,
+     "words_p10": 130,
+     "words_p90": 449,
+     "format": {
+      "bold (**)": 0.63,
+      "heading (#)": 0.002,
+      "bullet list": 0.31,
+      "numbered list": 0.488,
+      "code block": 0.004,
+      "LaTeX": 0.024
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 3
+     },
+     "says_it_is_an_ai": 6,
+     "opens_with_refusal": 4,
+     "contains_cjk": 0
+    }
+   },
+   "seconds_per_answer_median": 2.44,
+   "most_common_openings": [
+    [
+     "Let's break",
+     255
+    ],
+    [
+     "To find",
+     150
+    ],
+    [
+     "**Function Review**",
+     118
+    ],
+    [
+     "**Function Explanation**",
+     100
+    ],
+    [
+     "**Function Overview**",
+     99
+    ]
+   ]
+  },
+  "mistral:7b": {
+   "all": {
+    "rows": 2000,
+    "empty": 0,
+    "cut_off_at_token_limit": 0.056,
+    "tokens_median": 319.5,
+    "tokens_mean": 320.8,
+    "words_median": 208.0,
+    "words_p10": 67,
+    "words_p90": 364,
+    "format": {
+     "bold (**)": 0.0235,
+     "heading (#)": 0.0005,
+     "bullet list": 0.0975,
+     "numbered list": 0.5235,
+     "code block": 0.0065,
+     "LaTeX": 0.0715
+    },
+    "names": {
+     "Llama / Meta": 0,
+     "Qwen / Alibaba": 1,
+     "Mistral": 0,
+     "other model or company": 5
+    },
+    "says_it_is_an_ai": 5,
+    "opens_with_refusal": 3,
+    "contains_cjk": 0
+   },
+   "duplicate_prompt_ids": 0,
+   "by_task": {
+    "coding": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.06,
+     "tokens_median": 455.5,
+     "tokens_mean": 458.5,
+     "words_median": 302.0,
+     "words_p10": 236,
+     "words_p90": 380,
+     "format": {
+      "bold (**)": 0.018,
+      "heading (#)": 0.0,
+      "bullet list": 0.22,
+      "numbered list": 0.942,
+      "code block": 0.022,
+      "LaTeX": 0.0
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "math": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.006,
+     "tokens_median": 214.0,
+     "tokens_mean": 232.6,
+     "words_median": 129.5,
+     "words_p10": 74,
+     "words_p90": 220,
+     "format": {
+      "bold (**)": 0.004,
+      "heading (#)": 0.0,
+      "bullet list": 0.08,
+      "numbered list": 0.336,
+      "code block": 0.0,
+      "LaTeX": 0.272
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "factual": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.02,
+     "tokens_median": 150.5,
+     "tokens_mean": 211.1,
+     "words_median": 103.0,
+     "words_p10": 46,
+     "words_p90": 285,
+     "format": {
+      "bold (**)": 0.026,
+      "heading (#)": 0.0,
+      "bullet list": 0.022,
+      "numbered list": 0.35,
+      "code block": 0.0,
+      "LaTeX": 0.008
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 1,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 1,
+     "contains_cjk": 0
+    },
+    "writing": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.138,
+     "tokens_median": 388.0,
+     "tokens_mean": 381.0,
+     "words_median": 268.0,
+     "words_p10": 109,
+     "words_p90": 399,
+     "format": {
+      "bold (**)": 0.046,
+      "heading (#)": 0.002,
+      "bullet list": 0.068,
+      "numbered list": 0.466,
+      "code block": 0.004,
+      "LaTeX": 0.006
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 5
+     },
+     "says_it_is_an_ai": 5,
+     "opens_with_refusal": 2,
+     "contains_cjk": 0
+    }
+   },
+   "seconds_per_answer_median": 2.12,
+   "most_common_openings": [
+    [
+     "This C++",
+     448
+    ],
+    [
+     "First, let's",
+     177
+    ],
+    [
+     "To find",
+     161
+    ],
+    [
+     "Let's break",
+     60
+    ],
+    [
+     "This function",
+     38
+    ]
+   ]
+  },
+  "qwen2.5:7b": {
+   "all": {
+    "rows": 2000,
+    "empty": 0,
+    "cut_off_at_token_limit": 0.299,
+    "tokens_median": 372.0,
+    "tokens_mean": 389.7,
+    "words_median": 254.0,
+    "words_p10": 108,
+    "words_p90": 404,
+    "format": {
+     "bold (**)": 0.6395,
+     "heading (#)": 0.345,
+     "bullet list": 0.5205,
+     "numbered list": 0.718,
+     "code block": 0.216,
+     "LaTeX": 0.2605
+    },
+    "names": {
+     "Llama / Meta": 0,
+     "Qwen / Alibaba": 2,
+     "Mistral": 0,
+     "other model or company": 8
+    },
+    "says_it_is_an_ai": 13,
+    "opens_with_refusal": 2,
+    "contains_cjk": 13
+   },
+   "duplicate_prompt_ids": 0,
+   "by_task": {
+    "coding": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.91,
+     "tokens_median": 600.0,
+     "tokens_mean": 594.7,
+     "words_median": 373.0,
+     "words_p10": 328,
+     "words_p90": 406,
+     "format": {
+      "bold (**)": 1.0,
+      "heading (#)": 0.994,
+      "bullet list": 0.984,
+      "numbered list": 1.0,
+      "code block": 0.848,
+      "LaTeX": 0.014
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "math": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.008,
+     "tokens_median": 292.0,
+     "tokens_mean": 302.1,
+     "words_median": 175.0,
+     "words_p10": 123,
+     "words_p90": 243,
+     "format": {
+      "bold (**)": 0.404,
+      "heading (#)": 0.004,
+      "bullet list": 0.44,
+      "numbered list": 0.734,
+      "code block": 0.0,
+      "LaTeX": 1.0
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 0,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 0,
+     "opens_with_refusal": 0,
+     "contains_cjk": 0
+    },
+    "factual": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.04,
+     "tokens_median": 235.0,
+     "tokens_mean": 256.4,
+     "words_median": 172.5,
+     "words_p10": 42,
+     "words_p90": 344,
+     "format": {
+      "bold (**)": 0.526,
+      "heading (#)": 0.092,
+      "bullet list": 0.312,
+      "numbered list": 0.624,
+      "code block": 0.006,
+      "LaTeX": 0.006
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 1,
+      "Mistral": 0,
+      "other model or company": 0
+     },
+     "says_it_is_an_ai": 1,
+     "opens_with_refusal": 1,
+     "contains_cjk": 6
+    },
+    "writing": {
+     "rows": 500,
+     "empty": 0,
+     "cut_off_at_token_limit": 0.238,
+     "tokens_median": 418.5,
+     "tokens_mean": 405.5,
+     "words_median": 313.0,
+     "words_p10": 136,
+     "words_p90": 456,
+     "format": {
+      "bold (**)": 0.628,
+      "heading (#)": 0.29,
+      "bullet list": 0.346,
+      "numbered list": 0.514,
+      "code block": 0.01,
+      "LaTeX": 0.022
+     },
+     "names": {
+      "Llama / Meta": 0,
+      "Qwen / Alibaba": 1,
+      "Mistral": 0,
+      "other model or company": 8
+     },
+     "says_it_is_an_ai": 12,
+     "opens_with_refusal": 1,
+     "contains_cjk": 7
+    }
+   },
+   "seconds_per_answer_median": 3.09,
+   "most_common_openings": [
+    [
+     "To determine",
+     466
+    ],
+    [
+     "The provided",
+     180
+    ],
+    [
+     "### Explanation",
+     135
+    ],
+    [
+     "### Function",
+     84
+    ],
+    [
+     "This function",
+     75
+    ]
+   ]
+  }
+ },
+ "across_models": {
+  "prompts_answered_by_every_model": 2000,
+  "prompts_where_two_models_gave_the_same_text": 2
+ }
+}

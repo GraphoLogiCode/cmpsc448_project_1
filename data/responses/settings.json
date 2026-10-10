@@ -1,0 +1,52 @@
+{
+ "system_prompt": "You are a helpful assistant.",
+ "options": {
+  "temperature": 0.7,
+  "seed": 448,
+  "num_predict": 600,
+  "num_ctx": 4096
+ },
+ "workers": 4,
+ "prompts": 2000,
+ "ollama_version": "0.32.4",
+ "started": "2026-10-10T04:52:27+00:00",
+ "models": {
+  "llama3.1:8b": {
+   "family": "Llama (Meta)",
+   "digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+   "parameters": "8.0B",
+   "quantization": "Q4_K_M",
+   "result": {
+    "rows": 2000,
+    "empty": 0,
+    "hit_token_limit": 86,
+    "median_output_tokens": 281.0
+   }
+  },
+  "qwen2.5:7b": {
+   "family": "Qwen (Alibaba)",
+   "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+   "parameters": "7.6B",
+   "quantization": "Q4_K_M",
+   "result": {
+    "rows": 2000,
+    "empty": 0,
+    "hit_token_limit": 598,
+    "median_output_tokens": 372.0
+   }
+  },
+  "mistral:7b": {
+   "family": "Mistral (Mistral AI)",
+   "digest": "6577803aa9a036369e481d648a2baebb381ebc6e897f2bb9a766a2aa7bfbc1cf",
+   "parameters": "7.2B",
+   "quantization": "Q4_K_M",
+   "result": {
+    "rows": 2000,
+    "empty": 0,
+    "hit_token_limit": 112,
+    "median_output_tokens": 319.5
+   }
+  }
+ },
+ "finished": "2026-10-10T05:57:42+00:00"
+}
