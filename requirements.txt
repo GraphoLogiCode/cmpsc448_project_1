@@ -1,0 +1,9 @@
+# Install PyTorch first, with the build for your GPU: https://pytorch.org/get-started/locally/
+torch
+numpy
+pandas
+scikit-learn
+matplotlib
+tqdm
+# Only for generate_responses.py, and only if the LLMs are run through Hugging Face:
+transformers

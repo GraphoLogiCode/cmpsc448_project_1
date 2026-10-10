@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.idea/
+.vscode/
+
+# the course's assignment sheet is not ours to publish
+assignment/
+
+# trained weights
+*.pt
+*.safetensors
