@@ -1,0 +1,106 @@
+{
+ "run": "baseline_answer_no_coding",
+ "classifier": "TF-IDF baseline",
+ "input": "answer",
+ "models": [
+  "llama3.1:8b",
+  "mistral:7b",
+  "qwen2.5:7b"
+ ],
+ "chance": 0.3333,
+ "train_tasks": [
+  "factual",
+  "math",
+  "writing"
+ ],
+ "test_tasks": [
+  "coding"
+ ],
+ "C": 100.0,
+ "val": {
+  "rows": 675,
+  "accuracy": 0.8563,
+  "macro_f1": 0.8575,
+  "per_model": {
+   "llama3.1:8b": {
+    "precision": 0.8905,
+    "recall": 0.8311,
+    "f1": 0.8598
+   },
+   "mistral:7b": {
+    "precision": 0.7731,
+    "recall": 0.8933,
+    "f1": 0.8289
+   },
+   "qwen2.5:7b": {
+    "precision": 0.9268,
+    "recall": 0.8444,
+    "f1": 0.8837
+   }
+  },
+  "confusion_matrix": [
+   [
+    187,
+    31,
+    7
+   ],
+   [
+    16,
+    201,
+    8
+   ],
+   [
+    7,
+    28,
+    190
+   ]
+  ],
+  "accuracy_per_task": {
+   "factual": 0.7689,
+   "math": 0.9511,
+   "writing": 0.8489
+  }
+ },
+ "test": {
+  "rows": 225,
+  "accuracy": 0.7644,
+  "macro_f1": 0.7368,
+  "per_model": {
+   "llama3.1:8b": {
+    "precision": 1.0,
+    "recall": 0.32,
+    "f1": 0.4848
+   },
+   "mistral:7b": {
+    "precision": 1.0,
+    "recall": 0.9733,
+    "f1": 0.9865
+   },
+   "qwen2.5:7b": {
+    "precision": 0.5859,
+    "recall": 1.0,
+    "f1": 0.7389
+   }
+  },
+  "confusion_matrix": [
+   [
+    24,
+    0,
+    51
+   ],
+   [
+    0,
+    73,
+    2
+   ],
+   [
+    0,
+    0,
+    75
+   ]
+  ],
+  "accuracy_per_task": {
+   "coding": 0.7644
+  }
+ }
+}

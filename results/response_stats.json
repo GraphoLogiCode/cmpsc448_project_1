@@ -16,7 +16,7 @@
      "bullet list": 0.2495,
      "numbered list": 0.5305,
      "code block": 0.078,
-     "LaTeX": 0.091
+     "LaTeX": 0.007
     },
     "names": {
      "Llama / Meta": 0,
@@ -72,7 +72,7 @@
       "bullet list": 0.154,
       "numbered list": 0.138,
       "code block": 0.0,
-      "LaTeX": 0.326
+      "LaTeX": 0.028
      },
      "names": {
       "Llama / Meta": 0,
@@ -99,7 +99,7 @@
       "bullet list": 0.29,
       "numbered list": 0.524,
       "code block": 0.002,
-      "LaTeX": 0.014
+      "LaTeX": 0.0
      },
      "names": {
       "Llama / Meta": 0,
@@ -126,7 +126,7 @@
       "bullet list": 0.31,
       "numbered list": 0.488,
       "code block": 0.004,
-      "LaTeX": 0.024
+      "LaTeX": 0.0
      },
      "names": {
       "Llama / Meta": 0,
@@ -179,7 +179,7 @@
      "bullet list": 0.0975,
      "numbered list": 0.5235,
      "code block": 0.0065,
-     "LaTeX": 0.0715
+     "LaTeX": 0.0
     },
     "names": {
      "Llama / Meta": 0,
@@ -235,7 +235,7 @@
       "bullet list": 0.08,
       "numbered list": 0.336,
       "code block": 0.0,
-      "LaTeX": 0.272
+      "LaTeX": 0.0
      },
      "names": {
       "Llama / Meta": 0,
@@ -262,7 +262,7 @@
       "bullet list": 0.022,
       "numbered list": 0.35,
       "code block": 0.0,
-      "LaTeX": 0.008
+      "LaTeX": 0.0
      },
      "names": {
       "Llama / Meta": 0,
@@ -289,7 +289,7 @@
       "bullet list": 0.068,
       "numbered list": 0.466,
       "code block": 0.004,
-      "LaTeX": 0.006
+      "LaTeX": 0.0
      },
      "names": {
       "Llama / Meta": 0,
@@ -342,7 +342,7 @@
      "bullet list": 0.5205,
      "numbered list": 0.718,
      "code block": 0.216,
-     "LaTeX": 0.2605
+     "LaTeX": 0.2575
     },
     "names": {
      "Llama / Meta": 0,
@@ -425,7 +425,7 @@
       "bullet list": 0.312,
       "numbered list": 0.624,
       "code block": 0.006,
-      "LaTeX": 0.006
+      "LaTeX": 0.004
      },
      "names": {
       "Llama / Meta": 0,
@@ -452,7 +452,7 @@
       "bullet list": 0.346,
       "numbered list": 0.514,
       "code block": 0.01,
-      "LaTeX": 0.022
+      "LaTeX": 0.012
      },
      "names": {
       "Llama / Meta": 0,

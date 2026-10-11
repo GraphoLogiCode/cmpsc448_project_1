@@ -10,10 +10,12 @@ Given a piece of text, can a classifier tell which LLM wrote it? Two models are 
 
 | | Question | Status |
 | --- | --- | --- |
-| RQ1 (required) | Identify the LLM from its output | not started |
-| RQ2 (required) | Compare input only, output only, and input + output | not started |
-| RQ3 (+5) | Train on some task types, test on another | not started |
-| RQ4 (+5) | Which characteristics distinguish the LLMs | not started |
+| RQ1 (required) | Identify the LLM from its output | run for the baseline, the CNN and the LSTM |
+| RQ2 (required) | Compare input only, output only, and input + output | run for all three classifiers |
+| RQ3 (+5) | Train on some task types, test on another | run for all three classifiers, each task held out in turn |
+| RQ4 (+5) | Which characteristics distinguish the LLMs | run: style statistics, a style-only classifier and seven ablations |
+
+The report is in `report/` (`report_draft.md` and the PDF built from it).
 
 The full assignment is in `assignment/` (kept out of git).
 
@@ -27,11 +29,13 @@ src/
   build_dataset.py        clean the responses, tag the task type, split by prompt
   baseline.py             TF-IDF + logistic regression
   data.py                 tokeniser, vocabulary, padding, data loaders
-  models.py               the CNN and the LSTM                              (to write)
-  train.py                training loop with validation and early stopping   (to write)
+  models.py               the CNN and the LSTM
+  train.py                training loop with validation and early stopping
+  tune.py                 compares model settings on the validation split
   evaluate.py             scores a classifier, saves its predictions, prints the comparison table
   plot_results.py         draws the figures in results/figures
-  experiments.py          the runs for RQ2, RQ3 and RQ4                      (to write)
+  rq4.py                  RQ4: style statistics, a style-only classifier and the ablations
+  experiments.py          the commands behind each research question (no code)
 data/
   prompts/                prompts.jsonl, SOURCES.md (where each prompt comes from) and the licence files
   sources/                the downloaded prompt sources (kept out of git)
@@ -41,14 +45,55 @@ models/                   saved weights, one file per run (kept out of git)
 results/
   baseline.json           scores of the baseline (baseline_words_only.json: without punctuation)
   response_stats.json     statistics of the raw answers
-  runs/<run>/             one folder per trained model: history.json, metrics.json, predictions
+  tuning.jsonl            validation scores of the settings that were tried
+  rq4.json                the RQ4 numbers
+  runs/<run>/             one folder per trained model: config.json, history.json, metrics.json, predictions
   figures/                the figures, redrawn from the files above
 docs/
-  technical_report.md     how the dataset was built and what is in it
-report/                   the report PDF
+  technical_report.md         how the dataset was built and what is in it
+  technical_note_models.md    the CNN and the LSTM: architecture, training, choice of settings, results
+report/
+  report_draft.md         the report
+  report_draft.pdf        the same as a PDF, built by build_pdf.py
 ```
 
-Everything except `models.py`, `train.py` and `experiments.py` is implemented. The raw dataset is in `data/responses/` (6,000 answers), the cleaned splits are in `data/splits/` (4,194 train, 900 validation, 900 test rows), and the baseline's results are in `results/baseline.json`.
+The raw dataset is in `data/responses/` (6,000 answers) and the cleaned splits are in `data/splits/` (4,194 train, 900 validation, 900 test rows).
+
+## Models
+
+| | CNN | LSTM |
+| --- | --- | --- |
+| Input | up to 512 tokens; a token is a word or one punctuation character | the same |
+| Embedding | 128 dimensions, learned from scratch | the same |
+| Core | 128 filters for each of the widths 2, 3, 4 and 5 | one bidirectional layer of 256 units |
+| Pooling | maximum over time of each filter | maximum over time of each output |
+| Output | dropout 0.5, then a linear layer to the three classes | the same |
+| Parameters | 2.8 million | 3.3 million |
+
+Both are trained with cross-entropy and Adam (learning rate 0.001, batch 32, gradients clipped at norm 5). After each epoch the model is scored on the validation split; the weights of the epoch with the best validation accuracy are kept, and training stops after three epochs without improvement. Every setting of a run is in its `results/runs/<run>/config.json`.
+
+## Results
+
+Accuracy on the 900 test answers. Chance is 33.3%.
+
+| Classifier | Prompt only | Answer only | Prompt + answer |
+| --- | --- | --- | --- |
+| TF-IDF baseline | 33.3% | 88.3% | 87.8% |
+| CNN | 33.3% | 88.8% | 87.6% |
+| LSTM | 33.3% | 87.6% | 87.1% |
+
+The three classifiers are within about one point of each other, which is less than the difference between two runs of the same model with different random seeds (see `results/tuning.jsonl`). The figures are in `results/figures/`.
+
+**RQ3.** When a task type is held out of training and used for testing, accuracy falls in every case:
+
+| Held-out task | Baseline | CNN | LSTM |
+| --- | --- | --- | --- |
+| Coding | 76.4% | 94.2% | 96.9% |
+| Factual | 67.1% | 64.4% | 67.1% |
+| Math | 63.1% | 30.2% | 39.1% |
+| Writing | 72.9% | 70.7% | 56.4% |
+
+**RQ4.** The models differ most in formatting. A classifier that sees 16 style numbers and no words reaches 78.2%. With every word replaced by a placeholder the three classifiers still reach 83–87%, and with all punctuation removed 77–83%, so structure and wording each carry most of the signal.
 
 ## Running
 
@@ -60,12 +105,16 @@ python src/generate_responses.py    # data/responses/<model>.jsonl        needs 
 python src/check_responses.py       # results/response_stats.json
 python src/build_dataset.py         # data/splits/{train,val,test}.jsonl
 python src/baseline.py              # results/baseline.json
-python src/train.py                 # models/<run>.pt, results/runs/<run>/
+python src/tune.py                  # results/tuning.jsonl                validation only, about half an hour
+python src/train.py --model cnn     # models/<run>.pt, results/runs/<run>/   also --model lstm, --mode prompt|both
+python src/train.py --model cnn --held-out math      # RQ3; also lstm, and baseline.py --held-out math
+python src/rq4.py                   # results/rq4.json                    about 15 minutes
 python src/evaluate.py              # the comparison table of every classifier
 python src/plot_results.py          # results/figures/*.png
+python report/build_pdf.py          # report/report_draft.pdf             needs mistune and Chrome or Edge
 ```
 
-A trained model shows up in the table and in the figures as soon as its `results/runs/<run>/metrics.json` exists. What `train.py` has to write for that is described at the top of `src/train.py`.
+A trained model shows up in the table and in the figures as soon as its `results/runs/<run>/metrics.json` exists. The options of `train.py`, including `--held-out` for RQ3, are listed at the top of the file.
 
 ## Dataset
 

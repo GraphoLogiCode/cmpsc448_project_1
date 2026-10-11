@@ -17,6 +17,9 @@ data/responses/settings_trial.json
 data/responses/*.log
 data/responses/*.err
 
+# intermediate file of report/build_pdf.py
+report/*.html
+
 # trained weights
 models/*
 !models/.gitkeep

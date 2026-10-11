@@ -1,0 +1,29 @@
+{
+ "model": "cnn",
+ "mode": "answer",
+ "held_out": "math",
+ "run": "cnn_answer_no_math",
+ "epochs": 20,
+ "patience": 3,
+ "batch_size": 32,
+ "lr": 0.001,
+ "clip": 5.0,
+ "max_len": 512,
+ "emb_dim": 128,
+ "dropout": 0.5,
+ "seed": 448,
+ "overfit": null,
+ "classifier": "CNN",
+ "parameters": 2670979,
+ "vocabulary": 19059,
+ "rows": {
+  "train": 3144,
+  "val": 675,
+  "test": 225
+ },
+ "epochs_run": 13,
+ "best_epoch": 10,
+ "seconds": 7.7,
+ "device": "cuda",
+ "torch": "2.12.0.dev20260325+cu128"
+}

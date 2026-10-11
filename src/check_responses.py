@@ -26,7 +26,8 @@ NAMES = {"Llama / Meta": r"\bllama\b|\bmeta ai\b|\bmeta\b(?= (?:ai|platforms))",
 AI_PHRASE = r"\bas an ai\b|\bi(?: a|')m an ai\b|\blanguage model\b|\bai assistant\b"
 REFUSAL = r"\bi can(?:'|no)t (?:help|assist|provide|fulfill|answer)\b|\bi(?: a|')m sorry,? but\b|\bi(?: a|')m (?:not able|unable) to\b"
 FORMATS = {"bold (**)": r"\*\*[^*\n]+\*\*", "heading (#)": r"(?m)^#{1,6} ", "bullet list": r"(?m)^\s*[-*] ",
-           "numbered list": r"(?m)^\s*\d+[.)] ", "code block": r"```", "LaTeX": r"\\\(|\\\[|\\frac|\\boxed|\$[^$\n]+\$"}
+           # Dollar signs are not counted as LaTeX: in the maths answers they are mostly prices.
+           "numbered list": r"(?m)^\s*\d+[.)] ", "code block": r"```", "LaTeX": r"\\\(|\\\[|\\frac|\\boxed|\\text|\\times"}
 CJK = re.compile(r"[぀-ヿ㐀-鿿가-힯]")
 
 

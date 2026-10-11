@@ -1,0 +1,103 @@
+{
+ "run": "cnn_answer",
+ "classifier": "CNN",
+ "input": "answer",
+ "models": [
+  "llama3.1:8b",
+  "mistral:7b",
+  "qwen2.5:7b"
+ ],
+ "chance": 0.3333,
+ "train_tasks": null,
+ "test_tasks": null,
+ "val": {
+  "rows": 900,
+  "accuracy": 0.8978,
+  "macro_f1": 0.898,
+  "per_model": {
+   "llama3.1:8b": {
+    "precision": 0.9217,
+    "recall": 0.8633,
+    "f1": 0.8916
+   },
+   "mistral:7b": {
+    "precision": 0.8466,
+    "recall": 0.92,
+    "f1": 0.8818
+   },
+   "qwen2.5:7b": {
+    "precision": 0.9317,
+    "recall": 0.91,
+    "f1": 0.9207
+   }
+  },
+  "confusion_matrix": [
+   [
+    259,
+    29,
+    12
+   ],
+   [
+    16,
+    276,
+    8
+   ],
+   [
+    6,
+    21,
+    273
+   ]
+  ],
+  "accuracy_per_task": {
+   "coding": 0.9956,
+   "factual": 0.7956,
+   "math": 0.9511,
+   "writing": 0.8489
+  }
+ },
+ "test": {
+  "rows": 900,
+  "accuracy": 0.8878,
+  "macro_f1": 0.8882,
+  "per_model": {
+   "llama3.1:8b": {
+    "precision": 0.8926,
+    "recall": 0.8867,
+    "f1": 0.8896
+   },
+   "mistral:7b": {
+    "precision": 0.8299,
+    "recall": 0.9267,
+    "f1": 0.8756
+   },
+   "qwen2.5:7b": {
+    "precision": 0.9551,
+    "recall": 0.85,
+    "f1": 0.8995
+   }
+  },
+  "confusion_matrix": [
+   [
+    266,
+    29,
+    5
+   ],
+   [
+    15,
+    278,
+    7
+   ],
+   [
+    17,
+    28,
+    255
+   ]
+  ],
+  "accuracy_per_task": {
+   "coding": 1.0,
+   "factual": 0.7689,
+   "math": 0.96,
+   "writing": 0.8222
+  }
+ }
+}

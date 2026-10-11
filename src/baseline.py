@@ -1,10 +1,12 @@
 """TF-IDF + logistic regression on the same splits as the neural models.
 
-    python src/baseline.py                 # tokens are words and punctuation marks
-    python src/baseline.py --words-only    # tokens are words only; markdown and punctuation are dropped
+    python src/baseline.py                     # tokens are words and punctuation marks
+    python src/baseline.py --words-only        # tokens are words only; markdown and punctuation are dropped
+    python src/baseline.py --held-out coding   # RQ3: train on the other three tasks, test on coding
 
 Reads   data/splits/{train,val,test}.jsonl
 Writes  results/baseline.json (or baseline_words_only.json)
+        results/runs/baseline_answer_no_<task>/metrics.json when a task is held out
 
 It gives the number the CNN and the LSTM have to beat. Three inputs are tried, as RQ2 asks:
 the prompt alone, the answer alone, and both together.
@@ -74,16 +76,46 @@ def strongest_features(vectoriser, classifier, names):
     return {n: out[n] for n in names}
 
 
+def held_out_run(task, train, val, test, names, token_pattern):
+    """RQ3 for the baseline: fit on the answers of the other tasks, test on the answers of the held-out task.
+
+    Writes metrics.json in the same form as evaluate.evaluate_model, so the run shows up in the same
+    table and figure as the neural models.
+    """
+    text_of = INPUTS["answer only"]
+    seen = [[r for r in rows if r["task"] != task] for rows in (train, val)]
+    unseen = [r for r in test if r["task"] == task]
+    label = lambda rows: [r["llm_name"] for r in rows]
+    vectoriser, classifier, c, _ = fit([text_of(r) for r in seen[0]], label(seen[0]),
+                                       [text_of(r) for r in seen[1]], label(seen[1]), token_pattern)
+    run = f"baseline_answer_no_{task}"
+    metrics = {"run": run, "classifier": "TF-IDF baseline", "input": "answer", "models": names,
+               "chance": round(1 / len(names), 4),
+               "train_tasks": sorted({r["task"] for r in train} - {task}), "test_tasks": [task], "C": c,
+               "val": score(vectoriser, classifier, seen[1], [text_of(r) for r in seen[1]], label(seen[1]), names),
+               "test": score(vectoriser, classifier, unseen, [text_of(r) for r in unseen], label(unseen), names)}
+    (evaluate.RUNS / run).mkdir(parents=True, exist_ok=True)
+    (evaluate.RUNS / run / "metrics.json").write_text(json.dumps(metrics, indent=1), encoding="utf-8")
+    return metrics
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--splits-dir", type=Path, default=ROOT / "data" / "splits")
     ap.add_argument("--words-only", action="store_true", help="drop punctuation and markdown characters")
+    ap.add_argument("--held-out", help="train on the other tasks and test on this one (RQ3)")
     args = ap.parse_args()
 
     train, val, test = (read_jsonl(args.splits_dir / f"{s}.jsonl") for s in ("train", "val", "test"))
     names = sorted({r["llm_name"] for r in train})
     labels = {name: [r["llm_name"] for r in rows] for name, rows in (("train", train), ("val", val), ("test", test))}
     token_pattern = WORDS_ONLY if args.words_only else WITH_PUNCTUATION
+
+    if args.held_out:
+        m = held_out_run(args.held_out, train, val, test, names, token_pattern)
+        print(f"{m['run']}: validation accuracy on the seen tasks {m['val']['accuracy']:.3f}, "
+              f"test accuracy on {args.held_out} {m['test']['accuracy']:.3f} (chance {m['chance']:.3f})")
+        return
 
     results = {"tokens": "words only" if args.words_only else "words and punctuation", "models": names,
                "chance": round(1 / len(names), 4), "rows": {"train": len(train), "val": len(val), "test": len(test)},

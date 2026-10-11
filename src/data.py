@@ -48,18 +48,22 @@ def read_split(split, tasks=None):
     return [r for r in rows if tasks is None or r["task"] in tasks]
 
 
-def row_tokens(row, mode, max_len):
-    """The tokens of one row for the chosen input, cut to max_len."""
+def row_tokens(row, mode, max_len, transform=None):
+    """The tokens of one row for the chosen input, cut to max_len.
+
+    transform, if given, rewrites the answer text first (used by rq4.py to remove one kind of signal).
+    """
+    answer = transform(row["llm_output"]) if transform else row["llm_output"]
     if mode == "answer":
-        tokens = tokenize(row["llm_output"])
+        tokens = tokenize(answer)
     elif mode == "prompt":
         tokens = tokenize(row["llm_input"])
     elif mode == "both":
         # The prompt gets at most a third of the room, so a long prompt cannot push the answer out.
-        tokens = tokenize(row["llm_input"])[:max_len // 3] + ["<sep>"] + tokenize(row["llm_output"])
+        tokens = tokenize(row["llm_input"])[:max_len // 3] + ["<sep>"] + tokenize(answer)
     else:
         raise ValueError(f"mode must be one of {MODES}, not {mode!r}")
-    return tokens[:max_len]
+    return tokens[:max_len] or ["<unk>"]      # never an empty row: the LSTM cannot pack a text of length 0
 
 
 class Vocabulary:
@@ -84,8 +88,8 @@ class Vocabulary:
 class TextDataset(Dataset):
     """One item per row: (token ids, label index)."""
 
-    def __init__(self, rows, vocab, names, mode, max_len):
-        self.items = [(torch.tensor(vocab.encode(row_tokens(r, mode, max_len)), dtype=torch.long),
+    def __init__(self, rows, vocab, names, mode, max_len, transform=None):
+        self.items = [(torch.tensor(vocab.encode(row_tokens(r, mode, max_len, transform)), dtype=torch.long),
                        names.index(r["llm_name"])) for r in rows]
 
     def __len__(self):
@@ -105,7 +109,8 @@ def collate(batch):
     return tokens, lengths, torch.tensor(labels, dtype=torch.long)
 
 
-def make_loaders(mode="answer", max_len=512, batch_size=32, min_count=2, train_tasks=None, test_tasks=None, seed=448):
+def make_loaders(mode="answer", max_len=512, batch_size=32, min_count=2, train_tasks=None, test_tasks=None, seed=448,
+                 transform=None):
     """Loaders for the three splits, with the vocabulary, the class names and the rows behind them.
 
     Returns a dict with keys "train", "val", "test" (DataLoader), "vocab", "names" and "rows"
@@ -116,8 +121,8 @@ def make_loaders(mode="answer", max_len=512, batch_size=32, min_count=2, train_t
     rows = {"train": read_split("train", train_tasks), "val": read_split("val", train_tasks),
             "test": read_split("test", test_tasks)}
     names = sorted({r["llm_name"] for r in read_split("train")})
-    vocab = Vocabulary((row_tokens(r, mode, max_len) for r in rows["train"]), min_count)
-    sets = {s: TextDataset(rows[s], vocab, names, mode, max_len) for s in SPLITS}
+    vocab = Vocabulary((row_tokens(r, mode, max_len, transform) for r in rows["train"]), min_count)
+    sets = {s: TextDataset(rows[s], vocab, names, mode, max_len, transform) for s in SPLITS}
     shuffle = torch.Generator().manual_seed(seed)
     return {"train": DataLoader(sets["train"], batch_size, shuffle=True, generator=shuffle, collate_fn=collate),
             "val": DataLoader(sets["val"], batch_size, shuffle=False, collate_fn=collate),

@@ -1,0 +1,24 @@
+{"name": "cnn starting point", "val_acc": 0.8989, "val_loss": 0.2726, "best_epoch": 6, "epochs": 9, "seconds": 6.5, "parameters": 2782211}
+{"name": "cnn 700 tokens", "val_acc": 0.8944, "val_loss": 0.274, "best_epoch": 6, "epochs": 9, "seconds": 5.6, "parameters": 2818179}
+{"name": "cnn widths 1 to 5", "val_acc": 0.8889, "val_loss": 0.2917, "best_epoch": 9, "epochs": 12, "seconds": 7.1, "parameters": 2799107}
+{"name": "cnn widths 3 to 5", "val_acc": 0.8967, "val_loss": 0.2796, "best_epoch": 9, "epochs": 12, "seconds": 5.6, "parameters": 2748931}
+{"name": "cnn 256 filters", "val_acc": 0.8978, "val_loss": 0.2729, "best_epoch": 6, "epochs": 9, "seconds": 4.9, "parameters": 3013635}
+{"name": "cnn embedding 256", "val_acc": 0.8933, "val_loss": 0.2819, "best_epoch": 7, "epochs": 10, "seconds": 5.5, "parameters": 5562371}
+{"name": "cnn dropout 0.3", "val_acc": 0.8989, "val_loss": 0.2796, "best_epoch": 8, "epochs": 11, "seconds": 6.0, "parameters": 2782211}
+{"name": "cnn learning rate 0.0005", "val_acc": 0.9022, "val_loss": 0.2727, "best_epoch": 11, "epochs": 14, "seconds": 7.5, "parameters": 2782211}
+{"name": "cnn batch 64", "val_acc": 0.8911, "val_loss": 0.2801, "best_epoch": 10, "epochs": 13, "seconds": 3.7, "parameters": 2782211}
+{"name": "lstm starting point", "val_acc": 0.8689, "val_loss": 0.3222, "best_epoch": 12, "epochs": 15, "seconds": 103.3, "parameters": 2815747}
+{"name": "lstm last memory instead of max", "val_acc": 0.8567, "val_loss": 0.4799, "best_epoch": 15, "epochs": 18, "seconds": 116.1, "parameters": 2815747}
+{"name": "lstm 700 tokens", "val_acc": 0.8456, "val_loss": 0.385, "best_epoch": 7, "epochs": 10, "seconds": 79.2, "parameters": 2851715}
+{"name": "lstm 256 units", "val_acc": 0.8867, "val_loss": 0.2856, "best_epoch": 11, "epochs": 14, "seconds": 88.2, "parameters": 3342851}
+{"name": "lstm 2 layers", "val_acc": 0.8778, "val_loss": 0.3264, "best_epoch": 11, "epochs": 14, "seconds": 173.2, "parameters": 3211011}
+{"name": "lstm dropout 0.3", "val_acc": 0.8722, "val_loss": 0.339, "best_epoch": 9, "epochs": 12, "seconds": 82.9, "parameters": 2815747}
+{"name": "lstm learning rate 0.002", "val_acc": 0.8789, "val_loss": 0.2897, "best_epoch": 13, "epochs": 16, "seconds": 110.5, "parameters": 2815747}
+{"name": "lstm embedding 256", "val_acc": 0.8633, "val_loss": 0.3363, "best_epoch": 16, "epochs": 19, "seconds": 133.8, "parameters": 5497603}
+{"name": "lstm patience 5", "val_acc": 0.8756, "val_loss": 0.3149, "best_epoch": 17, "epochs": 22, "seconds": 153.1, "parameters": 2815747}
+{"name": "final cnn seed 1", "val_acc": 0.88, "val_loss": 0.2867, "best_epoch": 5, "epochs": 8, "seconds": 4.3, "parameters": 2782211}
+{"name": "final cnn seed 2", "val_acc": 0.8833, "val_loss": 0.3026, "best_epoch": 9, "epochs": 12, "seconds": 6.6, "parameters": 2782211}
+{"name": "final cnn seed 3", "val_acc": 0.8911, "val_loss": 0.2875, "best_epoch": 10, "epochs": 13, "seconds": 7.1, "parameters": 2782211}
+{"name": "final lstm seed 1", "val_acc": 0.8678, "val_loss": 0.3253, "best_epoch": 7, "epochs": 10, "seconds": 63.9, "parameters": 3342851}
+{"name": "final lstm seed 2", "val_acc": 0.8867, "val_loss": 0.2647, "best_epoch": 14, "epochs": 17, "seconds": 107.6, "parameters": 3342851}
+{"name": "final lstm seed 3", "val_acc": 0.8744, "val_loss": 0.3163, "best_epoch": 14, "epochs": 17, "seconds": 106.7, "parameters": 3342851}

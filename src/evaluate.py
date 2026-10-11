@@ -97,11 +97,11 @@ def main():
         raise SystemExit("nothing to show: run src/baseline.py or train a model first")
     tasks = sorted(results[0]["test"]["accuracy_per_task"])
     print(f"chance is {results[0]['chance']:.3f}; accuracy per task is on the test split\n")
-    print(f"{'classifier':16s} {'input':7s} {'run':16s} {'val acc':>8s} {'test acc':>9s} {'macro F1':>9s}  "
+    print(f"{'classifier':16s} {'input':7s} {'run':27s} {'val acc':>8s} {'test acc':>9s} {'macro F1':>9s}  "
           + "  ".join(f"{t:>8s}" for t in tasks))
     for r in results:
         per_task = r["test"]["accuracy_per_task"]
-        print(f"{r['classifier']:16s} {r['input']:7s} {r['run']:16s} {r['val']['accuracy']:8.3f} "
+        print(f"{r['classifier']:16s} {r['input']:7s} {r['run']:27s} {r['val']['accuracy']:8.3f} "
               f"{r['test']['accuracy']:9.3f} {r['test']['macro_f1']:9.3f}  "
               + "  ".join(f"{per_task[t]:8.3f}" if t in per_task else f"{'-':>8s}" for t in tasks))
 

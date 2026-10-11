@@ -1,0 +1,29 @@
+{
+ "model": "lstm",
+ "mode": "prompt",
+ "held_out": null,
+ "run": "lstm_prompt",
+ "epochs": 20,
+ "patience": 3,
+ "batch_size": 32,
+ "lr": 0.001,
+ "clip": 5.0,
+ "max_len": 512,
+ "emb_dim": 128,
+ "dropout": 0.5,
+ "seed": 448,
+ "overfit": null,
+ "classifier": "LSTM",
+ "parameters": 1940483,
+ "vocabulary": 8972,
+ "rows": {
+  "train": 4194,
+  "val": 900,
+  "test": 900
+ },
+ "epochs_run": 5,
+ "best_epoch": 2,
+ "seconds": 24.7,
+ "device": "cuda",
+ "torch": "2.12.0.dev20260325+cu128"
+}

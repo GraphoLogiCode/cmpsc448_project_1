@@ -1,0 +1,29 @@
+{
+ "model": "cnn",
+ "mode": "prompt",
+ "held_out": null,
+ "run": "cnn_prompt",
+ "epochs": 20,
+ "patience": 3,
+ "batch_size": 32,
+ "lr": 0.001,
+ "clip": 5.0,
+ "max_len": 512,
+ "emb_dim": 128,
+ "dropout": 0.5,
+ "seed": 448,
+ "overfit": null,
+ "classifier": "CNN",
+ "parameters": 1379843,
+ "vocabulary": 8972,
+ "rows": {
+  "train": 4194,
+  "val": 900,
+  "test": 900
+ },
+ "epochs_run": 12,
+ "best_epoch": 9,
+ "seconds": 8.4,
+ "device": "cuda",
+ "torch": "2.12.0.dev20260325+cu128"
+}

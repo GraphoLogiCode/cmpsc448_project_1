@@ -192,7 +192,7 @@ Share of each model's answers that use the format at least once:
 | Bullet list | 24.9% | 52.0% | 9.8% |
 | Numbered list | 53.0% | 71.8% | 52.3% |
 | Code block | 7.8% | 21.6% | 0.7% |
-| LaTeX maths | 9.1% | 26.1% | 7.1% |
+| LaTeX maths | 0.7% | 25.8% | 0.0% |
 
 The differences are large and they depend on the task. Llama uses bold in every code review but in 3% of its maths answers. Qwen uses LaTeX in every maths answer and headings in 99% of its code reviews. Mistral writes almost entirely plain text.
 

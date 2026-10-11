@@ -9,6 +9,8 @@ Writes  results/figures/
             confusion_matrices.png       which model is mistaken for which, answer only
             accuracy_held_out_task.png   a task seen in training against the same task held out (RQ3),
                                          drawn once runs with test_tasks exist
+            ablations.png                accuracy after one kind of signal is removed (RQ4),
+                                         drawn once results/rq4.json exists
             training_<run>.png           loss and accuracy per epoch, for every run with a history.json
 
 A new run appears in the figures as soon as its metrics.json exists; nothing here needs editing.
@@ -119,8 +121,10 @@ def grouped_bars(ax, groups, series, values, colours, chance=None, label_chance=
                            [MplPath.MOVETO, MplPath.LINETO, MplPath.CURVE3, MplPath.CURVE3, MplPath.LINETO,
                             MplPath.CURVE3, MplPath.CURVE3, MplPath.LINETO, MplPath.CLOSEPOLY])
             ax.add_patch(PathPatch(path, facecolor=colours[name], edgecolor="none", zorder=3))
+            # The label sits on a patch of the surface colour, so the chance line never strikes through it.
             ax.text((x0 + x1) / 2, top + 2.5 * y_per_pt, "100" if top >= 99.95 else f"{top:.1f}",
-                    ha="center", va="bottom", fontsize=7.5, color=INK_2, zorder=4)
+                    ha="center", va="bottom", fontsize=7.5, color=INK_2, zorder=4,
+                    bbox=dict(facecolor=SURFACE, edgecolor="none", pad=0.4))
     if chance is not None:
         ax.axhline(chance * 100, color=INK_2, linewidth=0.8, zorder=2)
         if label_chance:
@@ -203,6 +207,31 @@ def accuracy_held_out_task(results, out):
     return True
 
 
+def ablations(results_dir, out):
+    """RQ4: test accuracy of each classifier after one kind of signal was removed from the answers."""
+    source = results_dir / "rq4.json"
+    if not source.exists():
+        return False
+    rq4 = json.loads(source.read_text(encoding="utf-8"))
+    labels = {"full": "Full\nanswer", "no markup": "No\nmarkup", "words only": "Words\nonly",
+              "structure only": "Structure\nonly", "first 100 tokens": "First 100\ntokens",
+              "without opening": "Without\nopening", "opening only": "Opening\nonly"}
+    groups = list(rq4["ablations"])
+    series = ordered({c for scores in rq4["ablations"].values() for c in scores})
+    colours = {c: colour_of(c, series) for c in series}
+    values = {c: [rq4["ablations"][g][c]["test"]["accuracy"] if c in rq4["ablations"][g] else None for g in groups]
+              for c in series}
+    fig = plt.figure(figsize=(8.6, 3.9))
+    ax = fig.add_axes([0.065, 0.15, 0.865, 0.57])
+    grouped_bars(ax, [labels.get(g, g) for g in groups], series, values, colours, rq4["chance"])
+    titles(fig, "Test accuracy after one kind of signal is removed",
+           "Answer only. Each classifier is trained again on the changed answers.")
+    legend(fig, series, [colours[s] for s in series], y=0.79)
+    fig.savefig(out / "ablations.png", dpi=200)
+    plt.close(fig)
+    return True
+
+
 def confusion_matrices(results, out):
     best = {c: r for (c, m), r in best_runs(results).items() if m == "answer"}
     if not best:
@@ -249,21 +278,21 @@ def training_curves(results_dir, out):
         classifier = json.loads(metrics_file.read_text(encoding="utf-8"))["classifier"] if metrics_file.exists() else run
         colour = colour_of(classifier, [classifier])
         epochs = [h["epoch"] for h in history]
-        best = max(history, key=lambda h: (h["val_acc"], -h["epoch"]))
+        # The kept epoch is recorded by train.py; without that record, take the best validation accuracy.
+        config_file = history_file.parent / "config.json"
+        kept = json.loads(config_file.read_text(encoding="utf-8")).get("best_epoch") if config_file.exists() else None
+        best = next((h for h in history if h["epoch"] == kept), None) or max(history, key=lambda h: (h["val_acc"], -h["val_loss"]))
         fig = plt.figure(figsize=(7.2, 3.3))
         panels = [("Loss", "train_loss", "val_loss", 1.0), ("Accuracy (%)", "train_acc", "val_acc", 100.0)]
         for i, (label, train_key, val_key, scale) in enumerate(panels):
-            ax = fig.add_axes([0.075 + i * 0.5, 0.14, 0.40, 0.56])
+            ax = fig.add_axes([0.075 + i * 0.5, 0.14, 0.40, 0.52])
             ax.plot(epochs, [h[train_key] * scale for h in history], color=MUTED, linewidth=1.5, solid_capstyle="round")
             ax.plot(epochs, [h[val_key] * scale for h in history], color=colour, linewidth=1.5, solid_capstyle="round")
             ax.plot([best["epoch"]], [best[val_key] * scale], marker="o", markersize=6.5, color=colour,
                     markeredgecolor=SURFACE, markeredgewidth=1.5, zorder=5)
-            # The label hangs off the marker towards the middle of the plot, so it never leaves the axes.
-            late = best["epoch"] > (epochs[0] + epochs[-1]) / 2
-            ax.annotate(f"best epoch {best['epoch']}: {best[val_key] * scale:.{3 if scale == 1 else 1}f}",
-                        (best["epoch"], best[val_key] * scale), textcoords="offset points",
-                        xytext=(-7 if late else 7, 9 if i == 0 else -13), ha="right" if late else "left",
-                        fontsize=7.5, color=INK_2)
+            # The value at the kept epoch goes above the panel, where it cannot collide with the lines.
+            ax.set_title(f"Validation at the kept epoch ({best['epoch']}): "
+                         f"{best[val_key] * scale:.{3 if scale == 1 else 1}f}", fontsize=8, color=INK_2, loc="left", pad=6)
             ax.yaxis.grid(True, color=GRID, linewidth=0.6)
             ax.set_axisbelow(True)
             for side in ("top", "right", "left"):
@@ -276,7 +305,7 @@ def training_curves(results_dir, out):
             if i == 0:
                 ax.set_ylim(bottom=0)
         titles(fig, f"Training of {classifier} ({run})",
-               "Per epoch. The marked epoch has the best validation accuracy.")
+               "Per epoch. The dot marks the epoch whose weights were kept.")
         handles = [plt.Line2D([0], [0], color=MUTED, linewidth=1.5), plt.Line2D([0], [0], color=colour, linewidth=1.5)]
         fig.legend(handles, ["Training", "Validation"], loc="upper left", bbox_to_anchor=(0.012, 0.85), ncol=2,
                    frameon=False, fontsize=8, labelcolor=INK_2, handlelength=1.6, columnspacing=1.4)
@@ -301,6 +330,8 @@ def main():
     written = ["accuracy_by_input.png", "accuracy_by_task.png", "confusion_matrices.png"]
     if accuracy_held_out_task(results, out):
         written.append("accuracy_held_out_task.png")
+    if ablations(args.results_dir, out):
+        written.append("ablations.png")
     written += training_curves(args.results_dir, out)
     print(f"wrote {len(written)} figures to {out}:")
     for name in written:
