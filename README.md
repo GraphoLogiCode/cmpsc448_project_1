@@ -1,8 +1,8 @@
-# Who Wrote It? Identifying LLMs from Their Responses
+
 
 CMPSC 448, Project 1 (midterm). Deadline: 11:59 pm, 11 October 2026.
 
-Team: _fill in the leader and members; the report PDF must list them_
+Team: Benjamin Park
 
 ## Question
 
