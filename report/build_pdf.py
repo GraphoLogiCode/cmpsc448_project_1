@@ -19,23 +19,37 @@ BROWSERS = [r"C:\Program Files\Google\Chrome\Application\chrome.exe",
             r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"]
 
 CSS = """
-@page { size: Letter; margin: 0.9in 0.95in 0.95in; @bottom-center { content: counter(page); font: 9pt "Segoe UI", sans-serif; color: #666; } }
-body { font: 10.5pt/1.45 "Segoe UI", Arial, sans-serif; color: #111; }
+@page { size: Letter; margin: 0.65in 0.72in 0.65in; @bottom-center { content: counter(page); font: 9pt "Segoe UI", sans-serif; color: #666; } }
+@page:first { @bottom-center { content: none; } }
+body { font: 9.7pt/1.30 "Segoe UI", Arial, sans-serif; color: #17212b; }
 h1 { font-size: 19pt; line-height: 1.2; margin: 0 0 4pt; }
-h2 { font-size: 13.5pt; margin: 18pt 0 5pt; border-bottom: 0.6pt solid #bbb; padding-bottom: 2pt; break-after: avoid; }
+h2 { font-size: 14pt; margin: 15pt 0 7pt; border-bottom: 0.8pt solid #8ca2b2; padding-bottom: 4pt; break-after: avoid; color: #163c53; }
 h3 { font-size: 11pt; margin: 12pt 0 3pt; break-after: avoid; }
 p { margin: 0 0 7pt; }
 ul, ol { margin: 0 0 7pt; padding-left: 18pt; }
 li { margin-bottom: 2.5pt; }
-table { border-collapse: collapse; margin: 6pt 0 10pt; font-size: 9.2pt; line-height: 1.3; break-inside: avoid; }
-th, td { border-bottom: 0.5pt solid #ccc; padding: 3pt 7pt; text-align: left; vertical-align: top; }
-th { border-bottom: 0.9pt solid #555; font-weight: 600; }
-img { display: block; margin: 8pt auto 3pt; max-width: 100%; break-inside: avoid; }
+table { width: 100%; border-collapse: collapse; margin: 6pt 0 10pt; font-size: 8.5pt; line-height: 1.25; break-inside: avoid; }
+th, td { border-bottom: 0.5pt solid #ccd5db; padding: 3pt 6pt; text-align: left; vertical-align: top; }
+th { border-bottom: 0.9pt solid #6a8596; font-weight: 600; background: #edf3f6; }
+tr { break-inside: avoid; }
+img { display: block; margin: 8pt auto 3pt; max-width: 100%; max-height: 170pt; width: auto; object-fit: contain; break-inside: avoid; }
 .caption { text-align: center; font-size: 9pt; color: #444; margin-bottom: 11pt; break-before: avoid; }
 .byline { color: #333; margin-bottom: 2pt; }
 code { font: 9.2pt Consolas, monospace; background: #f3f3f1; padding: 0 2pt; }
 pre { background: #f3f3f1; padding: 6pt 8pt; font: 8.8pt/1.35 Consolas, monospace; break-inside: avoid; }
 pre code { background: none; padding: 0; }
+.page-break { break-before: page; }
+.page-break + h2, .page-break + h3 { margin-top: 0; }
+.title-page { padding-top: 115pt; }
+.title-page h1 { font-size: 38pt; color: #163c53; margin: 14pt 0; }
+.eyebrow { font-size: 10pt; letter-spacing: 2pt; color: #47697d; }
+.subtitle { font-size: 17pt; line-height: 1.4; max-width: 400pt; }
+.title-rule { height: 3pt; background: #47697d; width: 64pt; margin: 26pt 0; }
+.title-page p { margin-bottom: 15pt; }
+blockquote { border-left: 2pt solid #8ca2b2; margin: 8pt 0 10pt 7pt; padding: 3pt 10pt; color: #304857; }
+a { color: #244f69; overflow-wrap: anywhere; text-decoration: none; }
+code { overflow-wrap: anywhere; }
+p { orphans: 3; widows: 3; }
 """
 
 
